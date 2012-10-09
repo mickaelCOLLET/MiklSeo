@@ -2,8 +2,6 @@
 
 namespace MiklSeo;
 
-use Zend\Navigation\Navigation as Navigation;
-
 class Module{
 	
 	protected $_navigation = 'Zend\Navigation\Service\DefaultNavigationFactory';
@@ -55,7 +53,7 @@ class Module{
 	
 	}
 	
-	public function setNavigation(Navigation $navigation){
+	public function setNavigation($navigation){
 		
 		$this->_navigation = (string)$navigation;
 	}
