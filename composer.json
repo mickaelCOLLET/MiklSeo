@@ -1,5 +1,5 @@
-﻿{
-    "name": "mickaelcollet/mikl-seo",
+{
+    "name": "mikl/mikl-seo",
     "description": "Seo module for ZF2",
     "type": "library",
     "keywords": [
