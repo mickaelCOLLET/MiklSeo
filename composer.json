@@ -1,0 +1,30 @@
+﻿{
+    "name": "Mikl/mikl-seo",
+    "description": "Seo module for ZF2",
+    "type": "library",
+    "keywords": [
+        "zf2",
+        "seo",
+        "mikl"
+    ],
+    "homepage": "https://github.com/mickaelCOLLET/MiklSeo",
+    "authors": [
+        {
+            "name": "Mickaël COLLET",
+            "email": "mikl.collet@gmail.com",
+            "homepage": "https://github.com/mickaelCOLLET"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "zendframework/zendframework": ">=2.0.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "MiklSeo": "src/"
+        },
+        "classmap": [
+            "./Module.php"
+        ]
+    }
+}
