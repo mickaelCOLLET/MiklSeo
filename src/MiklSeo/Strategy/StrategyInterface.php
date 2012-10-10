@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace MiklSeo\Strategy;
 
@@ -7,8 +7,8 @@ namespace MiklSeo\Strategy;
  *
  */
 
-interface StrategyInterface{
-	
-	public function run();
-	
+interface StrategyInterface
+{
+    public function run();
+
 }
