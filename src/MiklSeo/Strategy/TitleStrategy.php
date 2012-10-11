@@ -23,12 +23,12 @@ class TitleStrategy extends AbstractStrategy
     protected $_placement;
 
     /**
-     * Not execute Tag
+     * Ignore Tag
      *
      * @var string
      */
 
-    protected $_doNotExecuteTag = 'noTitleSeo';
+    protected $_ignoreTag = 'noTitleSeo';
 
     /**
      * (non-PHPdoc)

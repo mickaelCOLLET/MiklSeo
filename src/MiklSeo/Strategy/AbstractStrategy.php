@@ -19,12 +19,12 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
     protected $_tag;
 
     /**
-     * Not execute Tag
+     * Ignore Tag
      *
      * @var string
      */
 
-    protected $_doNotExecuteTag;
+    protected $_ignoreTag;
 
     /**
      * Navigation
@@ -69,26 +69,26 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     /**
      *
-     * @param  string                          $doNotExecuteTag
+     * @param  string                          $ignoreTag
      * @return \MiklSeo\Strategy\TitleStrategy
      */
 
-    public function setDoNotExecuteTag($doNotExecuteTag)
+    public function setIgnoreTag($ignoreTag)
     {
-        $this->_doNotExecuteTag = (string) $doNotExecuteTag;
+        $this->_ignoreTag = (string) $ignoreTag;
 
         return $this;
     }
 
     /**
-     * Get Not execute Tag
+     * Get ignore tag
      *
      * @return string
      */
 
-    public function getDoNotExecuteTag()
+    public function getIgnoreTag()
     {
-        return $this->_doNotExecuteTag;
+        return $this->_ignoreTag;
     }
 
     /**
@@ -102,7 +102,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
     {
         $nav = $this->getActive();
 
-        if (null === $nav || ( isset($nav->{$this->getDoNotExecuteTag()}) && true === (bool) $nav->{$this->getDoNotExecuteTag()})) {
+        if (null === $nav || ( isset($nav->{$this->getIgnoreTag()}) && true === (bool) $nav->{$this->getIgnoreTag()})) {
             return false;
         }
 

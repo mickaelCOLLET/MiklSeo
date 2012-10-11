@@ -44,7 +44,7 @@ prepend or append to the root title by specify placement key parameter.
     			'MiklSeo\Strategy\TitleStrategy' => array(
     				//'tag'             => 'myCustomTag',
 					//'placement'       => 'appendOrPrepend',
-					//'doNotExecuteTag' => 'notExecuteSeoTag'
+					//'ignoreTag'       => 'ignoreSeoTag'
     			),
     		),
     	),
@@ -54,9 +54,9 @@ Default parameters:
 
 - tag : title
 - placement : null
-- doNotExcecuteTag : noTitleSeo
+- ignoreTag : ignoreTitleSeo
 
-doNotExcecuteTag bypass strategy on the current node
+*ignoreTag* ignore strategy on the current node
 
 MiklSeo\Strategy\MetaStrategy :
 ----------
@@ -68,7 +68,7 @@ MetaStrategy add meta tag of your current html page if active page is found.
 	    	'strategies' => array(
 		    	'MiklSeo\Strategy\MetaStrategy' => array(
 		    		//'tag'             => 'myCustomTag',
-					//'doNotExecuteTag' => 'notExecuteSeoTag'			
+					//'ignoreTag'       => 'ignoreSeoTag'			
 		    	),
 		    	
 	    	),
@@ -78,9 +78,9 @@ MetaStrategy add meta tag of your current html page if active page is found.
 Default parameters:
 
 - tag : meta
-- doNotExcecuteTag : noMetaSeo	
+- ignoreSeoTag : noMetaSeo	
 
-doNotExcecuteTag bypass strategy on the current node.
+*ignoreTag* bypass strategy on the current node.
 
 ## Exemple : ##
 
@@ -170,6 +170,6 @@ You can also herit MiklSeo\Strategy\AbstractStrategy to use default comportement
 
 	public function setTag($tag);
 	public function getTag();	
-	public function setDoNotExecuteTag($doNotExecuteTag);
-	public function getDoNotExecuteTag();
+	public function setIgnoreTag($ignoreTag);
+	public function getIgnoreTag();
 	

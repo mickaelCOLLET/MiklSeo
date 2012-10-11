@@ -13,12 +13,12 @@ class MetaStrategy extends AbstractStrategy
     protected $_tag = 'meta';
 
     /**
-     * Not execute Tag
+     * Ignore Tag
      *
      * @var string
      */
 
-    protected $_doNotExecuteTag = 'noMetaSeo';
+    protected $_ignoreTag = 'noMetaSeo';
 
     /**
      * (non-PHPdoc)
