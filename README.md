@@ -78,7 +78,7 @@ MetaStrategy add meta tag of your current html page if active page is found.
 Default parameters:
 
 - tag : meta
-- ignoreSeoTag : noMetaSeo	
+- ignoreTag : noMetaSeo	
 
 *ignoreTag* bypass strategy on the current node.
 
