@@ -3,6 +3,7 @@
 namespace MiklSeo\Strategy;
 
 use MiklSeo\Exception\StrategyException;
+use Zend\View\Helper\Placeholder;
 
 class TitleStrategy extends AbstractStrategy
 {
@@ -12,7 +13,7 @@ class TitleStrategy extends AbstractStrategy
      * @var string
      */
 
-    protected $_tag = 'title';
+    protected $tag = 'title';
 
     /**
      * Placement position
@@ -20,7 +21,7 @@ class TitleStrategy extends AbstractStrategy
      * @var string
      */
 
-    protected $_placement;
+    protected $placement;
 
     /**
      * Ignore Tag
@@ -28,40 +29,45 @@ class TitleStrategy extends AbstractStrategy
      * @var string
      */
 
-    protected $_ignoreTag = 'noTitleSeo';
+    protected $ignoreTag = 'noTitleSeo';
 
     /**
-     * (non-PHPdoc)
-     * @see \MiklSeo\Strategy\StrategyInterface::run()
+     * Run the strategy
+     * @return TitleStrategy
      */
-
     public function run()
     {
-        if ($nav = parent::currentActive()) {
-
-            $title = $nav->{$this->getTag()};
-
+        $container = parent::currentActive();
+        if ($container) {
+            $title = $container->{$this->getTag()};
             if (null !== ($placement = $this->getPlacement())) {
                 $this->getRenderer()->headTitle()->{$placement}($title);
-            } else {
-                $this->getRenderer()->headTitle($title);
+                return;
             }
-
+            $this->getRenderer()->headTitle($title);
         }
+        return $this;
     }
 
     public function getPlacement()
     {
-        return $this->_placement;
+        if(null === $this->placement) {
+            $this->setPlacement(Navigation::PREPEND);
+        }
+        return $this->placement;
     }
 
     public function setPlacement($placement)
     {
-        if (!in_array($placement, array('prepend', 'append'))) {
+        if (!in_array(strtoupper($placement),
+                array(
+                    Placeholder\Container\AbstractContainer::APPEND,
+                    Placeholder\Container\AbstractContainer::PREPEND)
+                )
+            ) {
             throw new StrategyException('Invalid placement');
         }
-        $this->_placement = (string) $placement;
-
+        $this->placement = $placement;
         return $this;
     }
 

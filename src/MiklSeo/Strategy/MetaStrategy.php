@@ -10,7 +10,7 @@ class MetaStrategy extends AbstractStrategy
      * @var string
      */
 
-    protected $_tag = 'meta';
+    protected $tag = 'meta';
 
     /**
      * Ignore Tag
@@ -18,7 +18,7 @@ class MetaStrategy extends AbstractStrategy
      * @var string
      */
 
-    protected $_ignoreTag = 'noMetaSeo';
+    protected $ignoreTag = 'noMetaSeo';
 
     /**
      * (non-PHPdoc)
@@ -27,15 +27,14 @@ class MetaStrategy extends AbstractStrategy
 
     public function run()
     {
-        if ($nav = parent::currentActive()) {
-
-            if (is_array($nav->{$this->getTag()})) {
-                foreach ($nav->{$this->getTag()} as $metaKey => $metaData) {
+        $container = parent::currentActive();
+        if ($container) {
+            $metas = $container->{$this->getTag()};
+            if (is_array($metas)) {
+                foreach ($metas as $metaKey => $metaData) {
                     $this->getRenderer()->headMeta()->appendName($metaKey, $metaData);
                 }
-
             }
-
         }
 
     }

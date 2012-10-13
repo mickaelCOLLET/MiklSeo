@@ -2,21 +2,15 @@
 
 namespace MiklSeo;
 
-class Module
+use Zend\ModuleManager\Feature\BootstrapListenerInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Zend\ModuleManager\Feature\ServiceProviderInterface;
+use Zend\EventManager\EventInterface;
+
+class Module implements BootstrapListenerInterface, ConfigProviderInterface,
+        ServiceProviderInterface
 {
-    protected $_navigation = 'Zend\Navigation\Service\DefaultNavigationFactory';
-
-    public function init()
-    {
-        $config = $this->getConfig();
-
-        if (isset($config['miklSeo']['navigation'])) {
-            $this->setNavigation($config['miklSeo']['navigation']);
-        }
-
-    }
-
-    public function onBootstrap($e)
+    public function onBootstrap(EventInterface $e)
     {
         $app = $e->getApplication();
         $app->getEventManager()->attach('dispatch', function($e){
@@ -35,9 +29,9 @@ class Module
     {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
-                    'namespaces' => array(
-                            __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                    ),
+                'namespaces' => array(
+                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                ),
             ),
         );
     }
@@ -45,17 +39,13 @@ class Module
     public function getServiceConfig()
     {
         return array(
+            'invokables' => array(
+                'MiklSeoStrategyManager' => 'MiklSeo\Strategy\StrategyPluginManager',
+            ),
             'factories' => array(
-                'MiklSeo'       => 'MiklSeo\Service\SeoFactory',
-                'MiklSeoNavigation' => $this->_navigation,
+                'MiklSeo' => 'MiklSeo\Service\SeoFactory',
             ),
         );
 
     }
-
-    public function setNavigation($navigation)
-    {
-        $this->_navigation = (string) $navigation;
-    }
-
 }

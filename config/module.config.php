@@ -3,10 +3,15 @@
 return array(
     'miklSeo' => array(
         'strategies' => array(
-            'MiklSeo\Strategy\TitleStrategy' => array(
+            'title' => array(
                 'placement' => 'prepend'
             ),
-            'MiklSeo\Strategy\MetaStrategy' => array(),
+            'meta' => array(),
+        ),
+    ),
+    'service_manager' => array(
+        'factories' => array(
+            'MiklSeoNavigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', // feel free to change the factory
         ),
     ),
 );
