@@ -21,14 +21,14 @@ class SeoFactory implements FactoryInterface
         $config   = $serviceLocator->get('Config');
         $nav      = $serviceLocator->get('MiklSeoNavigation');
         $renderer = $serviceLocator->get('ViewManager')->getRenderer();
+        $strategyManager = $serviceLocator->get('MiklSeoStrategyManager');
 
         $strategies = new StrategyIterator();
         $strategies->setRenderer($renderer);
         $strategies->setNavigation($nav);
 
         $config = $config['miklSeo'];
-        foreach ($config['strategies'] as $strategyClass => $params) {
-            $strategyManager = $serviceLocator->get('MiklSeoStrategyManager');
+        foreach ($config['strategies'] as $strategyClass => $params) {         
             if(!$strategyManager->has($strategyClass)) {
                 throw new StrategyException('"' . $strategyClass . '" strategy plugin do no exists.');
             }
