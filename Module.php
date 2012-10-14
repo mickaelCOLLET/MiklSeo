@@ -39,11 +39,9 @@ class Module implements BootstrapListenerInterface, ConfigProviderInterface,
     public function getServiceConfig()
     {
         return array(
-            'invokables' => array(
-                'MiklSeoStrategyManager' => 'MiklSeo\Strategy\StrategyPluginManager',
-            ),
             'factories' => array(
                 'MiklSeo' => 'MiklSeo\Service\SeoFactory',
+                'MiklSeoStrategyManager' => 'MiklSeo\Service\StrategyManagerFactory',
             ),
         );
 

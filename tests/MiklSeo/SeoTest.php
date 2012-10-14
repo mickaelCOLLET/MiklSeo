@@ -38,11 +38,18 @@ class SeoTest extends TestCase
                     'unit-tests-meta' => __DIR__ . '/../mocks/unit-tests-meta.phtml',
                 ),
             ),
+            'miklSeo' => array(
+                'strategy_plugins' => array(
+                    'aliases' => array(
+                        'alias' => 'title',
+                    )
+                ),
+            ),
         ));
         $serviceConfig = array_replace_recursive($serviceConfig, $config['service_manager']);
         $serviceConfig = array_replace_recursive($serviceConfig, array(
             'factories' => array(
-                'Application'   => function($sm) { return new \Mock\Application($sm->get('Config'), $sm); },
+                'Application'   => 'Mock\ApplicationFactory',
                 'Request'       => 'Zend\Mvc\Service\RequestFactory',
                 'Response'      => 'Zend\Mvc\Service\ResponseFactory',
                 'EventManager'  => 'Zend\Mvc\Service\EventManagerFactory',
@@ -102,5 +109,13 @@ class SeoTest extends TestCase
         $viewModel->setTemplate('unit-tests-meta');
         $view = $seo->getStrategies()->getRenderer()->render($viewModel);
         $this->assertEquals('<meta name="description" content="test de description">', $view);
+    }
+    
+    public function testCanDefineOwnFactories()
+    {
+        $strategyManager = $this->sm->get('MiklSeoStrategyManager');
+        $services = $strategyManager->getRegisteredServices();
+        $exist = in_array('alias', $services['aliases']);
+        $this->assertEquals(true, $exist);
     }
 }
