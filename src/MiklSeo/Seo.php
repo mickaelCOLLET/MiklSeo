@@ -14,7 +14,7 @@ class Seo
      * @var MiklSeo\Iterator\StrategyIterator
      */
 
-    protected $_strategies;
+    protected $strategies;
 
     /**
      * Set strategies
@@ -25,8 +25,7 @@ class Seo
 
     public function setStrategies(StrategyIterator $strategies)
     {
-        $this->_strategies = $strategies;
-
+        $this->strategies = $strategies;
         return $this;
     }
 
@@ -38,7 +37,7 @@ class Seo
 
     public function getStrategies()
     {
-        return $this->_strategies;
+        return $this->strategies;
     }
 
     /**
@@ -59,17 +58,8 @@ class Seo
     protected function _executeStrategies()
     {
         $strategies = $this->getStrategies();
-
         foreach ($strategies as $strategy) {
-
-            try {
-                $strategy->run();
-            } catch (\Exception $e) {
-                throw new StrategyException($e->getMessage(), $e->getCode());
-            }
-
+            $strategy->run();
         }
-
-        return;
     }
 }

@@ -6,7 +6,7 @@ use MiklSeo\Exception\InvalidArgumentException;
 use MiklSeo\Strategy\StrategyInterface;
 
 use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\Navigation\Navigation as Navigation;
+use Zend\Navigation\Navigation;
 
 class StrategyIterator extends \SplObjectStorage
 {
@@ -16,7 +16,7 @@ class StrategyIterator extends \SplObjectStorage
      * @var Zend\View\Renderer\RendererInterface
      */
 
-    protected $_renderer;
+    protected $renderer;
 
     /**
      * Navigation
@@ -24,34 +24,34 @@ class StrategyIterator extends \SplObjectStorage
      * @var Zend\Navigation\Navigation
      */
 
-    protected $_navigation;
+    protected $navigation;
 
     /**
      * Set renderer
      *
-     * @param  Renderer                           $renderer
+     * @param  Renderer $renderer
      * @return \MiklSeo\Iterator\StrategyIterator
      */
-
     public function setRenderer(Renderer $renderer)
     {
-        $this->_renderer = $renderer;
-
+        $this->renderer = $renderer;
         return $this;
+    }
 
+    public function getRenderer()
+    {
+        return $this->renderer;
     }
 
     /**
      * Set navigation
      *
-     * @param  Navigation                         $nav
+     * @param  Navigation $navigation
      * @return \MiklSeo\Iterator\StrategyIterator
      */
-
-    public function setNavigation(Navigation $nav)
+    public function setNavigation(Navigation $navigation)
     {
-        $this->_navigation = $nav;
-
+        $this->navigation = $navigation;
         return $this;
 
     }
@@ -67,8 +67,8 @@ class StrategyIterator extends \SplObjectStorage
             throw new InvalidArgumentException('Instance of StrategyInterface nedeed');
         }
 
-        $strategy->setRenderer($this->_renderer);
-        $strategy->setNavigation($this->_navigation);
+        $strategy->setRenderer($this->renderer);
+        $strategy->setNavigation($this->navigation);
 
         return parent::attach($strategy, $inf);
     }

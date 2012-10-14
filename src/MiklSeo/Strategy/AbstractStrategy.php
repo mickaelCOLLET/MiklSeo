@@ -16,7 +16,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
      * @var string
      */
 
-    protected $_tag;
+    protected $tag;
 
     /**
      * Ignore Tag
@@ -24,7 +24,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
      * @var string
      */
 
-    protected $_ignoreTag;
+    protected $ignoreTag;
 
     /**
      * Navigation
@@ -32,7 +32,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
      * @var Zend\Navigation\Navigation
      */
 
-    protected $_navigation;
+    protected $navigation;
 
     /**
      * Renderer
@@ -40,7 +40,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
      * @var Zend\View\Renderer\RendererInterface
      */
 
-    protected $_renderer;
+    protected $renderer;
 
     /**
      * Set tag key
@@ -51,8 +51,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function setTag($tag)
     {
-        $this->_tag = (string) $tag;
-
+        $this->tag = (string) $tag;
         return $this;
     }
 
@@ -64,7 +63,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function getTag()
     {
-        return $this->_tag;
+        return $this->tag;
     }
 
     /**
@@ -75,8 +74,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function setIgnoreTag($ignoreTag)
     {
-        $this->_ignoreTag = (string) $ignoreTag;
-
+        $this->ignoreTag = (string) $ignoreTag;
         return $this;
     }
 
@@ -88,7 +86,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function getIgnoreTag()
     {
-        return $this->_ignoreTag;
+        return $this->ignoreTag;
     }
 
     /**
@@ -100,14 +98,14 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function currentActive()
     {
-        $nav = $this->getActive();
+        $container = $this->getActive();
+        $ignoreTag = $container->{$this->getIgnoreTag()};
 
-        if (null === $nav || ( isset($nav->{$this->getIgnoreTag()}) && true === (bool) $nav->{$this->getIgnoreTag()})) {
+        if (null === $container || ( isset($ignoreTag) && true === (bool) $container->{$ignoreTag})) {
             return false;
         }
 
-        return $nav;
-
+        return $container;
     }
 
     /**
@@ -118,8 +116,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function setNavigation(Navigation $nav)
     {
-        $this->_navigation = $nav;
-
+        $this->navigation = $nav;
         return $this;
     }
 
@@ -131,7 +128,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function getNavigation()
     {
-        return $this->_navigation;
+        return $this->navigation;
     }
 
     /**
@@ -142,8 +139,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function setRenderer(Renderer $renderer)
     {
-        $this->_renderer = $renderer;
-
+        $this->renderer = $renderer;
         return $this;
     }
 
@@ -155,7 +151,7 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
 
     public function getRenderer()
     {
-        return $this->_renderer;
+        return $this->renderer;
     }
 
     /**
@@ -168,5 +164,4 @@ abstract class AbstractStrategy extends AbstractOptions implements StrategyInter
     {
         return $this->getNavigation()->findOneByActive(true);
     }
-
 }
