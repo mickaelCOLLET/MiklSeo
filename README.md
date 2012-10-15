@@ -15,14 +15,20 @@ Also, MiklSeo use strategies to optimize your html for search engine.
 MiklSeo\config\module.config.php :
 
     return array(
-        'miklSeo' => array(	 		
-			//'navigation' => 'my\Custom\Navigation',
-        	'strategies' => array(
-        		'MiklSeo\Strategy\TitleStrategy' => array(),
-    	    	'MiklSeo\Strategy\MetaStrategy' => array(), 	
-        	),
-        ),
-    );
+	    'miklSeo' => array(
+	        'strategies' => array(
+	            'title' => array(
+	                'placement' => 'prepend'
+	            ),
+	            'meta' => array(),
+	        ),
+	    ),
+	    'service_manager' => array(
+	        'factories' => array(
+	            'MiklSeoNavigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', // feel free to change the factory
+	        ),
+	    ),
+	);
 
 Define strategies in module.config.php under *strategies* key :
 
@@ -32,16 +38,16 @@ Define strategies in module.config.php under *strategies* key :
 By default, 2 strategies are available:
 
 
-MiklSeo\Strategy\TitleStrategy :
+Title :
 ----------
 
-TitleStrategy add title tag of your current html page if active page is found.
+Title strategy add title tag of your current html page if active page is found.
 prepend or append to the root title by specify placement key parameter.
 
     return array(
     	'miklSeo' => array(	 		
     		'strategies' => array(	
-    			'MiklSeo\Strategy\TitleStrategy' => array(
+    			'title' => array(
     				//'tag'             => 'myCustomTag',
 					//'placement'       => 'appendOrPrepend',
 					//'ignoreTag'       => 'ignoreSeoTag'
@@ -58,15 +64,15 @@ Default parameters:
 
 *ignoreTag* ignore strategy on the current node
 
-MiklSeo\Strategy\MetaStrategy :
+Meta :
 ----------
 
-MetaStrategy add meta tag of your current html page if active page is found.
+Meta strategy add meta tag of your current html page if active page is found.
 
 	return array(
 	    'miklSeo' => array(	 		
 	    	'strategies' => array(
-		    	'MiklSeo\Strategy\MetaStrategy' => array(
+		    	'meta' => array(
 		    		//'tag'             => 'myCustomTag',
 					//'ignoreTag'       => 'ignoreSeoTag'			
 		    	),
@@ -122,14 +128,18 @@ From xml navigation file :
 Form this *module.config.php* file:
 
 	return array(
-	    'miklSeo' => array(	 		
-	    	'strategies' => array(
-	    		'MiklSeo\Strategy\TitleStrategy' => array(
-					'placement' => 'prepend'
-				),
-		    	'MiklSeo\Strategy\MetaStrategy' => array(),
-		    	
-	    	),
+	    'miklSeo' => array(
+	        'strategies' => array(
+	            'title' => array(
+	                'placement' => 'prepend'
+	            ),
+	            'meta' => array(),
+	        ),
+	    ),
+	    'service_manager' => array(
+	        'factories' => array(
+	            'MiklSeoNavigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', // feel free to change the factory
+	        ),
 	    ),
 	);
 
@@ -173,3 +183,24 @@ You can also herit MiklSeo\Strategy\AbstractStrategy to use default comportement
 	public function setIgnoreTag($ignoreTag);
 	public function getIgnoreTag();
 	
+And add it in module.config.php file, under *strategy_plugins* key :
+
+	return array(
+	    'miklSeo' => array(
+	        'strategies' => array(
+	            'title' => array(
+	                'placement' => 'prepend'
+	            ),
+	            'meta' => array(),
+	        ),
+			 'strategy_plugins' => array(
+				'My\Custom\Strategy\Implement\StrategyInterface' => array(
+				)
+			),
+	    ),
+	    'service_manager' => array(
+	        'factories' => array(
+	            'MiklSeoNavigation' => 'Zend\Navigation\Service\DefaultNavigationFactory', // feel free to change the factory
+	        ),
+	    ),
+	);
