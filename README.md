@@ -37,7 +37,6 @@ Define strategies in module.config.php under *strategies* key :
 
 By default, 2 strategies are available:
 
-
 Title :
 ----------
 
